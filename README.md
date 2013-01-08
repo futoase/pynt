@@ -42,7 +42,8 @@ run the build.
 
 ```python
 
-#!/usr/bin/python
+#!/usr/bin/env python3.3
+# -*- coding:utf-8 -*-
 
 import sys
 from pynt import task, build
@@ -50,39 +51,39 @@ from pynt import task, build
 @task()
 def clean():
     '''Clean build directory.'''
-    print 'Cleaning build directory...'
+    print('Cleaning build directory...')
 
 @task(clean)
 def html(target='.'):
     '''Generate HTML.'''
-    print 'Generating HTML in directory "%s"' %  target
+    print('Generating HTML in directory {target}'.format(target = target))
+
 
 @task(clean, ignore=True)
 def images():
     '''Prepare images.'''
-    print 'Preparing images...'
+    print('Preparing images...')
 
 @task(html,images)
 def start_server(server='localhost', port = '80'):
     '''Start the server'''
-    print 'Starting server at %s:%s' % (server, port)
+    print('Starting server at {server}:{port}'.format(server = server, port = port))
 
 @task(start_server) #Depends on task with all optional params
 def stop_server():
-    print 'Stopping server....'
+    print('Stopping server....')
 
 @task()
 def copy_file(src, dest):
-    print 'Copying from %s to %s' % (src, dest)
+    print('Copying from {src} to {dest}'.format(src = src, dest = dest))
 
 @task()
 def echo(*args,**kwargs):
-    print args
-    print kwargs
-    
+    print(args)
+    print(kwargs)
+
 if __name__ == '__main__':
     build(sys.modules[__name__],sys.argv[1:])
-
 ```
 
 The command line interface and help is automatically generated. Task descriptions
@@ -196,3 +197,8 @@ It will be great if you can raise a [pull request](https://help.github.com/artic
 ## License
 
 pynt is licensed under a [MIT license](http://opensource.org/licenses/MIT)
+
+## P.S.
+
+Improvement by Keiji Matsuzaki.
+Thanks to the Rao-san.
