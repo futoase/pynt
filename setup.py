@@ -9,5 +9,5 @@ setup(
     packages=["pynt"],
     license="MIT License",
     description="Lightweight Python Build Tool.",
-    long_description=open("README.rst").read()+"\n"+open("CHANGES.rst").read()
+    long_description=open("README.md").read()+"\n"+open("CHANGES.rst").read()
 )

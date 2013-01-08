@@ -36,7 +36,7 @@ def build(module,args):
         print_tasks(module)
     elif not args.tasks:
         parser.print_help()
-        print "\n"
+        print("\n")
         print_tasks(module)
     else:
         _run_from_task_names(module,args.tasks)
@@ -51,7 +51,7 @@ def print_tasks(module):
     task_help_format = "\n  {0:<%s} {1: ^10} {2}" % name_width
     for task in tasks:
         task_list += task_help_format.format(task.name, "[Ignored]" if task.ignored else '', task.doc)
-    print task_list + "\n\n"+_CREDIT_LINE
+    print(task_list + "\n\n"+_CREDIT_LINE)
 
 def _run_from_task_names(module,task_names):
     """
@@ -78,7 +78,7 @@ def _get_task(module, name):
     args, kwargs= _parse_args(args_str)
     if hasattr(module, task_name):
         return getattr(module, task_name), args, kwargs
-    matching_tasks = filter(lambda task: task.name.startswith(task_name), tasks)
+    matching_tasks = [task for task in tasks if task.name.startswith(task_name)]
         
     if not matching_tasks:
         raise Exception("task should be one of " +

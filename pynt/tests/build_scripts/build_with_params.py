@@ -4,12 +4,12 @@ import sys
 from ... import _pynt
 
 tasks_run = []
-    
+
 @_pynt.task()
 def clean(directory='/tmp'):
     tasks_run.append('clean[%s]' % directory)
 
-    
+
 @_pynt.task(clean)
 def html():
     tasks_run.append('html')
@@ -37,14 +37,16 @@ def ignored(file, contents):
 def append_to_file(file, contents):
     tasks_run.append('append_to_file[%s,%s]' % (file, contents))
 
-    
+
 @_pynt.task(ignored)
 def echo(*args,**kwargs):
     args_str = []
     if args:
         args_str.append(','.join(args))
     if kwargs:
-        args_str.append(','.join("%s=%s" %  item for item in kwargs.items()))
+        from collections import OrderedDict
+        _kwargs = OrderedDict(sorted(kwargs.items()))
+        args_str.append(','.join("%s=%s" %  item for item in list(_kwargs.items())))
 
     tasks_run.append('echo[%s]' % ','.join(args_str))
 

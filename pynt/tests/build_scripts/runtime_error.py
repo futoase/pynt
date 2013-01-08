@@ -16,7 +16,7 @@ def images():
 def android():
     """Package Android app."""
     global ran_android
-    print "android"
+    print("android")
     ran_android = True
     
 if __name__ == "__main__":
